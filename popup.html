@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blocky - Ad Blocker</title>
+  <link rel="stylesheet" href="styles/popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">
+        <img src="icons/icon32.png" alt="Blocky" class="logo-icon">
+        <h1>Blocky</h1>
+      </div>
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" id="toggleBlocking" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="status" id="status">
+      <div class="status-item">
+        <span class="status-label">Status:</span>
+        <span class="status-value" id="blockingStatus">Active</span>
+      </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="stats">
+      <h3>Today's Statistics</h3>
+      <div class="stat-grid">
+        <div class="stat-item">
+          <div class="stat-number" id="blockedCount">0</div>
+          <div class="stat-label">Ads Blocked</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="sitesProtected">0</div>
+          <div class="stat-label">Sites Protected</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Current Site -->
+    <div class="current-site">
+      <h3>Current Site</h3>
+      <div class="site-info">
+        <div class="site-url" id="currentSite">Loading...</div>
+        <div class="site-stats">
+          <span id="currentSiteBlocked">0</span> ads blocked on this page
+          <span id="statsUpdating" class="stats-indicator" style="display: none;">🔄</span>
+        </div>
+      </div>
+      <div class="site-controls">
+        <button id="whitelistSite" class="btn btn-secondary">
+          <span id="whitelistText">Whitelist Site</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button id="pauseFor30" class="btn btn-secondary">Pause for 30min</button>
+      <button id="reportIssue" class="btn btn-secondary">Report Issue</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <button id="openOptions" class="btn btn-link">Settings</button>
+      <button id="refreshRules" class="btn btn-link">Update Filters</button>
+    </div>
+  </div>
+
+  <script src="scripts/popup.js"></script>
+</body>
+</html>

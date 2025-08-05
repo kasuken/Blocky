@@ -1,0 +1,43 @@
+{
+  "name": "blocky-ad-blocker",
+  "version": "1.0.0",
+  "description": "A powerful browser extension that blocks ads using multiple filter sources",
+  "main": "manifest.json",
+  "scripts": {
+    "build": "echo 'Browser extension - no build step required'",
+    "dev": "echo 'Load extension in browser developer mode'",
+    "test": "echo 'Manual testing in browser required'",
+    "lint": "echo 'Add linting tools as needed'"
+  },
+  "keywords": [
+    "ad-blocker",
+    "browser-extension",
+    "chrome-extension",
+    "edge-extension",
+    "privacy",
+    "security"
+  ],
+  "author": "Emanuele Bartolesi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kasuken/blocky.git"
+  },
+  "homepage": "https://github.com/kasuken/blocky",
+  "devDependencies": {},
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "blocky@blocky-extension.org",
+      "strict_min_version": "109.0"
+    }
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ]
+}

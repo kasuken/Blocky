@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blocky Settings</title>
+  <link rel="stylesheet" href="styles/options.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <img src="icons/icon48.png" alt="Blocky" class="logo">
+        <div>
+          <h1>Blocky Settings</h1>
+          <p>Configure your ad blocking preferences</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Welcome section (shown on first install) -->
+    <section class="welcome" id="welcomeSection" style="display: none;">
+      <h2>Welcome to Blocky!</h2>
+      <p>Thank you for installing Blocky, your new ad blocker. Here's how to get started:</p>
+      <ul>
+        <li>✅ Filter lists are automatically enabled</li>
+        <li>🛡️ Start browsing - ads will be blocked automatically</li>
+        <li>⚙️ Customize your settings below if needed</li>
+        <li>📊 View blocking statistics in the extension popup</li>
+      </ul>
+      <button id="dismissWelcome" class="btn btn-primary">Get Started</button>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-tab="general">General</button>
+      <button class="nav-tab" data-tab="filters">Filter Lists</button>
+      <button class="nav-tab" data-tab="whitelist">Whitelist</button>
+      <button class="nav-tab" data-tab="advanced">Advanced</button>
+      <button class="nav-tab" data-tab="about">About</button>
+    </nav>
+
+    <!-- Tab Content -->
+    <main class="content">
+      <!-- General Tab -->
+      <section class="tab-content active" id="general">
+        <h2>General Settings</h2>
+        
+        <div class="setting-group">
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="enableBlocking" checked>
+              <span class="checkbox-custom"></span>
+              Enable ad blocking
+            </label>
+            <p class="setting-description">Turn on/off ad blocking globally</p>
+          </div>
+
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="enableStats" checked>
+              <span class="checkbox-custom"></span>
+              Collect blocking statistics
+            </label>
+            <p class="setting-description">Track how many ads are blocked (stored locally)</p>
+          </div>
+
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="showNotifications" checked>
+              <span class="checkbox-custom"></span>
+              Show blocking notifications
+            </label>
+            <p class="setting-description">Display notifications when ads are blocked</p>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <h3>Performance</h3>
+          
+          <div class="setting-item">
+            <label class="setting-label">
+              Block level:
+              <select id="blockingLevel" class="select-input">
+                <option value="basic">Basic (Ads only)</option>
+                <option value="standard" selected>Standard (Ads + Trackers)</option>
+                <option value="strict">Strict (Ads + Trackers + Social)</option>
+              </select>
+            </label>
+            <p class="setting-description">Choose how aggressively to block content</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filter Lists Tab -->
+      <section class="tab-content" id="filters">
+        <h2>Filter Lists</h2>
+        <p>Choose which filter sources to use for blocking ads and trackers.</p>
+        
+        <div class="filter-list">
+          <div class="filter-item">
+            <label class="setting-label">
+              <input type="checkbox" id="enableEasyList" checked>
+              <span class="checkbox-custom"></span>
+              EasyList
+            </label>
+            <div class="filter-info">
+              <p class="filter-description">Primary ad blocking filter list (Recommended)</p>
+              <div class="filter-stats">
+                <span class="filter-count" id="easyListCount">~30,000 rules</span>
+                <span class="filter-updated" id="easyListUpdated">Updated daily</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-item">
+            <label class="setting-label">
+              <input type="checkbox" id="enableUBlock" checked>
+              <span class="checkbox-custom"></span>
+              uBlock Origin Filters
+            </label>
+            <div class="filter-info">
+              <p class="filter-description">Additional blocking rules from uBlock Origin (Recommended)</p>
+              <div class="filter-stats">
+                <span class="filter-count" id="ublockCount">~15,000 rules</span>
+                <span class="filter-updated" id="ublockUpdated">Updated daily</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-item">
+            <label class="setting-label">
+              <input type="checkbox" id="enableCustom">
+              <span class="checkbox-custom"></span>
+              Custom Rules
+            </label>
+            <div class="filter-info">
+              <p class="filter-description">Add your own custom blocking rules</p>
+              <button id="manageCustomRules" class="btn btn-secondary btn-small">Manage Custom Rules</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <button id="updateFilters" class="btn btn-primary">Update All Filter Lists</button>
+          <p class="setting-description">Last updated: <span id="lastUpdated">Never</span></p>
+        </div>
+      </section>
+
+      <!-- Whitelist Tab -->
+      <section class="tab-content" id="whitelist">
+        <h2>Whitelisted Sites</h2>
+        <p>Sites on this list will not have ads blocked.</p>
+        
+        <div class="whitelist-controls">
+          <div class="input-group">
+            <input type="text" id="whitelistInput" placeholder="Enter domain (e.g., example.com)" class="text-input">
+            <button id="addWhitelist" class="btn btn-primary">Add</button>
+          </div>
+        </div>
+
+        <div class="whitelist-list" id="whitelistList">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- Advanced Tab -->
+      <section class="tab-content" id="advanced">
+        <h2>Advanced Settings</h2>
+        
+        <div class="setting-group">
+          <h3>Debugging</h3>
+          
+          <div class="setting-item">
+            <label class="setting-label">
+              <input type="checkbox" id="enableDebugMode">
+              <span class="checkbox-custom"></span>
+              Enable debug mode
+            </label>
+            <p class="setting-description">Show detailed logging in browser console</p>
+          </div>
+
+          <div class="setting-item">
+            <button id="exportSettings" class="btn btn-secondary">Export Settings</button>
+            <button id="importSettings" class="btn btn-secondary">Import Settings</button>
+            <input type="file" id="importFile" style="display: none" accept=".json">
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <h3>Reset</h3>
+          
+          <div class="setting-item">
+            <button id="resetSettings" class="btn btn-danger">Reset All Settings</button>
+            <p class="setting-description">This will restore all settings to their defaults</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Tab -->
+      <section class="tab-content" id="about">
+        <h2>About Blocky</h2>
+        
+        <div class="about-info">
+          <div class="about-item">
+            <strong>Version:</strong> 1.0.0
+          </div>
+          <div class="about-item">
+            <strong>Total Rules:</strong> <span id="totalRules">45,000+</span>
+          </div>
+          <div class="about-item">
+            <strong>Last Filter Update:</strong> <span id="aboutLastUpdated">Never</span>
+          </div>
+        </div>
+
+        <div class="about-section">
+          <h3>Privacy</h3>
+          <p>Blocky respects your privacy:</p>
+          <ul>
+            <li>No data is collected or sent to external servers</li>
+            <li>All blocking happens locally in your browser</li>
+            <li>Statistics are stored locally on your device</li>
+            <li>No user tracking or analytics</li>
+          </ul>
+        </div>
+
+        <div class="about-section">
+          <h3>Support</h3>
+          <div class="support-links">
+            <a href="#" class="btn btn-link" id="reportBug">Report a Bug</a>
+            <a href="#" class="btn btn-link" id="requestFeature">Request Feature</a>
+            <a href="#" class="btn btn-link" id="viewSource">View Source Code</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Status Messages -->
+    <div id="statusMessage" class="status-message"></div>
+  </div>
+
+  <!-- Custom Rules Modal -->
+  <div id="customRulesModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Custom Blocking Rules</h3>
+        <button class="modal-close" id="closeCustomRules">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Enter custom blocking rules (one per line):</p>
+        <textarea id="customRulesText" placeholder="||ads.example.com^&#10;||tracker.com/script.js&#10;example.com##.advertisement" rows="10" class="textarea-input"></textarea>
+        <p class="help-text">
+          Format: Use AdBlock Plus syntax. Examples:
+          <br>• <code>||domain.com^</code> - Block domain
+          <br>• <code>||domain.com/path*</code> - Block URL pattern
+          <br>• <code>domain.com##.class</code> - Hide element
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button id="saveCustomRules" class="btn btn-primary">Save Rules</button>
+        <button id="cancelCustomRules" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/options.js"></script>
+</body>
+</html>

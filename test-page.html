@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocky Test Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; }
+        .ad-test { 
+            background: #ffeeee; 
+            padding: 10px; 
+            margin: 10px 0; 
+            border: 1px solid red; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Blocky Ad Blocker Test Page</h1>
+    <p>This page contains various elements that should be blocked by Blocky.</p>
+    
+    <div class="test-section">
+        <h2>Test Elements</h2>
+        
+        <!-- Common ad classes that should be blocked -->
+        <div class="ad">This is an ad that should be blocked</div>
+        <div class="advertisement">This is an advertisement that should be blocked</div>
+        <div class="banner-ad">This is a banner ad that should be blocked</div>
+        <div class="google-ad">This is a Google ad that should be blocked</div>
+        
+        <!-- Sponsored content -->
+        <div class="sponsored">This is sponsored content that should be blocked</div>
+        <div aria-label="Sponsored content">This sponsored content should be blocked</div>
+        
+        <!-- Ad containers -->
+        <div class="ad-container">
+            <p>This ad container should be blocked</p>
+        </div>
+        
+        <!-- Text patterns -->
+        <div>Advertisement: This should be blocked due to text pattern</div>
+        <div>Sponsored by Company XYZ - this should be blocked</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Simulated Network Ads</h2>
+        <p>These elements simulate ads from common ad networks:</p>
+        
+        <!-- These won't load due to network blocking -->
+        <img src="https://doubleclick.net/ad.jpg" alt="Doubleclick ad">
+        <script src="https://googleadservices.com/ads.js"></script>
+        <iframe src="https://googlesyndication.com/ads.html"></iframe>
+    </div>
+    
+    <div class="test-section">
+        <h2>Regular Content</h2>
+        <p>This content should NOT be blocked:</p>
+        <div class="content">This is regular content</div>
+        <div class="article">This is an article</div>
+        <p>Normal paragraph content should remain visible.</p>
+    </div>
+    
+    <script>
+        // Add some dynamic ads for testing
+        setTimeout(() => {
+            const dynamicAd = document.createElement('div');
+            dynamicAd.className = 'adsbygoogle';
+            dynamicAd.innerHTML = 'Dynamic Google Ad (should be blocked)';
+            document.body.appendChild(dynamicAd);
+            
+            console.log('Added dynamic ad element');
+        }, 2000);
+        
+        // Log current blocked count
+        setInterval(() => {
+            const hiddenElements = document.querySelectorAll('[data-blocky-hidden]');
+            console.log(`Blocky: ${hiddenElements.length} elements currently blocked on this page`);
+        }, 5000);
+    </script>
+</body>
+</html>

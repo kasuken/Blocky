@@ -1,3 +1,5 @@
+<p align="center"><img src="/icons/icon128.png" /></p>
+
 # Blocky - Browser Ad Blocker Extension
 
 A powerful and lightweight ad blocker browser extension for Chrome and Edge that blocks ads using multiple filter sources.
